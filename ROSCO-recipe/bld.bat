@@ -1,9 +1,5 @@
 mkdir build
-if errorlevel 1 exit 1
 cd build
-if errorlevel 1 exit 1
 
-cmake .. -G "MinGW Makefiles"
-if errorlevel 1 exit 1
+cmake .. -G "MinGW Makefiles" -D CMAKE_Fortran_FLAGS="-ffree-line-length-0"
 make
-if errorlevel 1 exit 1
