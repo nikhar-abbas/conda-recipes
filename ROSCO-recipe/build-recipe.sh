@@ -36,17 +36,17 @@ echo "Converting conda package ..."
 find $CONDA_BUILDDIR -name *.tar.bz2 | while read file
 do
     echo $file
-    for platform in "${platforms[@]}"
-    do
-        conda-convert $file -p $platform -o $BUILDDIR
-        echo "Package converted to $platform"
-    done    
+    # for platform in "${platforms[@]}"
+    # do
+    #     conda-convert $file -p $platform -o $BUILDDIR
+    #     echo "Package converted to $platform"
+    # done    
     cp $file ${BUILDDIR}/osx-64
 done
 
-# upload packages to conda
-find $BUILDDIR -name *.tar.bz2 | while read file
-do
-    echo "Uploading $file to conda"
-    anaconda upload --force $file
-done
+# # upload packages to conda
+# find $BUILDDIR -name *.tar.bz2 | while read file
+# do
+#     echo "Uploading $file to conda"
+#     anaconda upload --force $file
+# done

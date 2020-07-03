@@ -5,15 +5,14 @@ package:
   name: {{ name|lower }}
   version: {{ version }}
 
-# source:
-#   url: https://github.com/openfast/openfast/archive/v{{ version }}.tar.gz
-#   sha256: 2b368e8c8211ebed03e87fb3e89ef733b7e4be4848834da4034f8419d618446c
+source:
+  url: https://github.com/nrel/rosco/archive/v{{ version }}.tar.gz
+  sha256: 3e907f7d2f8369cb20c08050985e00473176e8b5cde85ebda8f77e8d18135a2f
 #   # Download the tar-ball and do `openssl sha256 file.tar.gz` to update
 
-source:
-  git_url: https://github.com/NREL/ROSCO.git
-  git_rev: v{{ version }}
-  # git_depth: 1 # (Defaults to -1/not shallow)
+# source:
+#   git_url: https://github.com/NREL/ROSCO.git
+#   git_rev: v{{ version }}
 
 build:
   number: 0
@@ -21,19 +20,20 @@ build:
 
 requirements:
   build:
-    - {{ compiler('fortran') }}       # [unix]
+    - {{ compiler('fortran') }}  # [unix]
     - {{ compiler('m2w64_fortran') }}  # [win]
     - make
     - cmake
   host:
-    - m2w64-toolchain # [win]
+    - m2w64-toolchain  # [win]
     - libblas
     - liblapack
-    - libpython # [win]
+    - libpython  # [win]
 
-# test:
-#   commands:
-#     - openfast -h
+test:
+  commands:
+    - test -f $PREFIX/libdiscon$SHLIB_EXT  # [unix]
+    - if not exist %LIBRARY_LIB%\\ibdiscon.dll exit 1  # [win]
 
 about:
   home: https://github.com/NREL/rosco
@@ -41,7 +41,6 @@ about:
   license_file: LICENSE
   summary: Reference OpenSource Wind Turbine Controller
   description: NREL-developed wind turbine controller for bladed-style communications
-  # doc_url: http://openfast.readthedocs.io
   dev_url: https://github.com/NREL/rosco
 
 extra:
